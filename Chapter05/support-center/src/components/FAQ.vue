@@ -2,18 +2,18 @@
   <main class="faq">
     <h1>Frenquently Asked Questions</h1>
 
-    <div class="error" v-if="error">
+    <div class="error" v-if="hasRemoteErrors">
       Can't load the questions
     </div>
 
     <section class="list">
-      <article v-for="question of questions">
+      <article v-for="question of questionList">
         <h2 v-html="question.title"></h2>
         <p v-html="question.content"></p>
       </article>
     </section>
 
-    <Loading v-if="loading"></Loading>
+    <Loading v-if="remoteDataBusy"></Loading>
   </main>
 </template>
 
@@ -29,20 +29,7 @@
     name: "FAQ",
     data() {
       return {
-        questions: [],
-        error: null,
-        loading: false,
-        remoteDataLoading: 42,
       }
-    },
-    async created() {
-      this.loading = true
-      try {
-        this.questions = await this.$fetch('questions')
-      } catch (e) {
-        this.error = e
-      }
-      this.loading = false
     },
   }
 </script>

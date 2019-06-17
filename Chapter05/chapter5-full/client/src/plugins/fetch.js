@@ -9,6 +9,7 @@ export async function $fetch (url, options) {
       'Content-Type': 'application/json',
     },
     credentials: 'include',
+    mode: "no-cors",
   }, options)
   const response = await fetch(`${baseUrl}${url}`, finalOptions)
   if (response.ok) {
