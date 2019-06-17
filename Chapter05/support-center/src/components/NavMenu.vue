@@ -18,7 +18,7 @@
     name: "NavMenu",
     methods: {
       async logout() {
-        const result = await this.$fetch('login')
+        const result = await this.$fetch('logout')
         if (result.status === 'ok') {
           this.$state.user = null
         }

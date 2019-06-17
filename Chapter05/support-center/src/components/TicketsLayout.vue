@@ -1,13 +1,20 @@
 <template>
-    <main class="tickets-layout">
-      <h1>Your Support tickets</h1>
-    </main>
+  <main class="tickets-layout">
+    <h1>Your Support tickets</h1>
+
+    <Tickets/>
+  </main>
 </template>
 
 <script>
-    export default {
-        name: "TicketsLayout"
+  import Tickets from './Tickets'
+
+  export default {
+    name: "TicketsLayout",
+    components: {
+      Tickets,
     }
+  }
 </script>
 
 <style scoped>

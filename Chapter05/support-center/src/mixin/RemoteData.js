@@ -17,10 +17,9 @@ export default function (resources) {
         return this.$data.remoteDataLoading !== 0
       },
       hasRemoteErrors() {
-        return Object.keys(this.$data.remoteErrors).some
-        {
+        return Object.keys(this.$data.remoteErrors).some(
           key => this.$data.remoteErrors[key]
-        }
+        )
       }
     },
     methods: {

@@ -6,18 +6,16 @@ import './global-components'
 import VueFetch, {$fetch} from './plugins/fetch'
 import state from './state'
 import VueState from './plugins/state'
-
-new Vue({
-  el: '#app',
-  data: state,
-  router,
-  render: h => h(AppLayout),
-})
+import * as filters from './filters'
 
 Vue.use(VueFetch, {
   baseUrl: 'http://localhost:3000/',
 })
 Vue.use(VueState, state)
+
+for (const key in filters) {
+  Vue.filter(key, filters[key])
+}
 
 async function main() {
   try {
