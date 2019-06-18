@@ -5,14 +5,21 @@ import FAQ from './components/FAQ.vue'
 import Login from './components/Login'
 import TicketsLayout from './components/TicketsLayout'
 import state from "./state";
+import Tickets from './components/Tickets'
+import NewTicket from './components/NewTicket'
 
 Vue.use(VueRouter)
 
 const routes = [
   {path: '/', name: 'home', component: Home},
   {path: '/faq', name: 'faq', component: FAQ},
-  {path: '/login', name: 'login', component: Login},
-  {path: '/tickets', name: 'tickets', component: TicketsLayout, meta: {private: true}}
+  {path: '/login', name: 'login', component: Login, meta: {guest: true}},
+  {
+    path: '/tickets', name: 'tickets', component: TicketsLayout, meta: {private: true}, children: [
+      {path: '', name: 'tickets', component: Tickets},
+      {path: 'new', name: 'new-ticket', component: NewTicket},
+    ]
+  }
 ]
 
 const router = new VueRouter({
@@ -21,13 +28,20 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.private && !state.user) {
+  // matched属性可以访问这个路由对象的列表
+  if (to.matched.some(r => r.meta.private) && !state.user) {
     // 重定向到登陆
     next({
       name: 'login',
       params: {
         wantedRoute: to.fullPath,
       }
+    })
+    return
+  }
+  if (to.matched.some(r => r.meta.guest) && state.user) {
+    next({
+      name: 'home',
     })
     return
   }
