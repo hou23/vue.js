@@ -51,7 +51,7 @@
           }
           this.busy = false
         }
-      }
+      },
     }
   }
 </script>
